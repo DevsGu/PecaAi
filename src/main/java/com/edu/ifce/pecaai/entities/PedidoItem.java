@@ -10,23 +10,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_produto")
-public class Produto {
+@Table(name = "tb_pedido_item")
+public class PedidoItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nome;
-
-    @Column(nullable = false)
-    private String descricao;
-
-    @Column(nullable = false)
-    private Double preco;
+    private Integer quantidade;
 
     @ManyToOne
-    @JoinColumn(name = "loja_id", nullable = false)
-    private Loja loja;
+    @JoinColumn(name = "pedido_id", nullable = false)
+    private Pedido pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "produto_id", nullable = false)
+    private Produto produto;
 }

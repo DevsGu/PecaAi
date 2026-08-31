@@ -1,32 +1,29 @@
 package com.edu.ifce.pecaai.entities;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 
-@Entity
-@Table(name = "tb_produto")
-public class Produto {
+public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nome;
-
-    @Column(nullable = false)
-    private String descricao;
-
-    @Column(nullable = false)
-    private Double preco;
+    private LocalDateTime dataHora;
 
     @ManyToOne
     @JoinColumn(name = "loja_id", nullable = false)
     private Loja loja;
+
+    @OneToMany(mappedBy = "pedido")
+    private List<PedidoItem> itens;
 }
