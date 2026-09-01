@@ -59,7 +59,14 @@ public class ChamadaGarcom {
         this.loja = loja;
     }
 
+    public ChamadaGarcom(Long id, Integer numeroMesa, Boolean statusAtendido, Loja loja) {
+        this.id = id;
+        this.numeroMesa = numeroMesa;
+        this.statusAtendido = statusAtendido;
+        this.loja = loja;
+    }
 
 
+    
     
 }
