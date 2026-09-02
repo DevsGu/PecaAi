@@ -26,4 +26,47 @@ public class ChamadaGarcom {
     @ManyToOne
     @JoinColumn(name = "loja_id", nullable = false)
     private Loja loja;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getNumeroMesa() {
+        return numeroMesa;
+    }
+
+    public void setNumeroMesa(Integer numeroMesa) {
+        this.numeroMesa = numeroMesa;
+    }
+
+    public Boolean getStatusAtendido() {
+        return statusAtendido;
+    }
+
+    public void setStatusAtendido(Boolean statusAtendido) {
+        this.statusAtendido = statusAtendido;
+    }
+
+    public Loja getLoja() {
+        return loja;
+    }
+
+    public void setLoja(Loja loja) {
+        this.loja = loja;
+    }
+
+    public ChamadaGarcom(Long id, Integer numeroMesa, Boolean statusAtendido, Loja loja) {
+        this.id = id;
+        this.numeroMesa = numeroMesa;
+        this.statusAtendido = statusAtendido;
+        this.loja = loja;
+    }
+
+
+    
+    
 }

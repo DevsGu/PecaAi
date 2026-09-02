@@ -30,4 +30,38 @@ public class Usuario {
         @Enumerated(EnumType.STRING)
         @Column(nullable = false)
         private TipoUsuario tipo;
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public TipoUsuario getTipo() {
+            return tipo;
+        }
+
+        public void setTipo(TipoUsuario tipo) {
+            this.tipo = tipo;
+        }
+
+        public Usuario(Long id, String email, TipoUsuario tipo) {
+            this.id = id;
+            this.email = email;
+            this.tipo = tipo;
+        }
+
+        
+        
+
 }
