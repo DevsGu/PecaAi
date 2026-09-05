@@ -24,7 +24,7 @@ public class Usuario {
         public enum TipoUsuario {
             GERENTE,
             USUARIO,
-            GARÇOM
+            GARCOM
         }
 
         @Enumerated(EnumType.STRING)
