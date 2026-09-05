@@ -1,16 +1,22 @@
 package com.edu.ifce.pecaai.services;
 
+import com.edu.ifce.pecaai.dto.PedidoItemRequestDTO;
 import com.edu.ifce.pecaai.dto.PedidoRequestDTO; // Ajuste o pacote se necessário
 import com.edu.ifce.pecaai.entities.Loja;
 import com.edu.ifce.pecaai.entities.Pedido;
+import com.edu.ifce.pecaai.entities.PedidoItem;
+import com.edu.ifce.pecaai.entities.Produto;
 import com.edu.ifce.pecaai.entities.Usuario;
 import com.edu.ifce.pecaai.repositories.LojaRepository;
+import com.edu.ifce.pecaai.repositories.PedidoItemRepository;
 import com.edu.ifce.pecaai.repositories.PedidoRepository;
+import com.edu.ifce.pecaai.repositories.ProdutoRepository;
 import com.edu.ifce.pecaai.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +30,13 @@ public class PedidoService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private PedidoItemRepository pedidoItemRepository;
+    
 
     public List<Pedido> listarTodos() {
         return pedidoRepository.findAll();
@@ -56,7 +69,25 @@ public class PedidoService {
         pedido.setUsuario(cliente);
 
         // Salva o pedido principal no banco
-        return pedidoRepository.save(pedido);
+        // return pedidoRepository.save(pedido);
+
+        Pedido pedidoSalvo = pedidoRepository.save(pedido);
+
+        List<PedidoItem> itensSalvos = new ArrayList<>();
+        for (PedidoItemRequestDTO itemDTO : dto.itens()) {
+            Produto produto = produtoRepository.findById(itemDTO.produtoId())
+                    .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + itemDTO.produtoId()));
+
+            PedidoItem item = new PedidoItem();
+            item.setPedido(pedidoSalvo);
+            item.setProduto(produto);
+            item.setQuantidade(itemDTO.quantidade());
+
+            itensSalvos.add(pedidoItemRepository.save(item));
+        }
+
+        pedidoSalvo.setItens(itensSalvos);
+        return pedidoSalvo;
     }
 
     public void deletar(Long id) {

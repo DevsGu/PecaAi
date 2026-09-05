@@ -1,5 +1,6 @@
 package com.edu.ifce.pecaai.services;
 
+import com.edu.ifce.pecaai.dto.UsuarioRequestDTO;
 import com.edu.ifce.pecaai.entities.Usuario;
 import com.edu.ifce.pecaai.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,10 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o ID: " + id));
     }
 
-    public Usuario salvar(Usuario usuario) {
+    public Usuario salvar(UsuarioRequestDTO dto) {
+        Usuario usuario = new Usuario();
+        usuario.setEmail(dto.email());
+        usuario.setTipo(Usuario.TipoUsuario.valueOf(dto.tipo()));
         return usuarioRepository.save(usuario);
     }
 
