@@ -31,6 +31,11 @@ public class Usuario {
         @Column(nullable = false)
         private TipoUsuario tipo;
 
+        
+
+        public Usuario() {
+        }
+
         public Long getId() {
             return id;
         }

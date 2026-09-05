@@ -1,5 +1,6 @@
 package com.edu.ifce.pecaai.controller;
 
+import com.edu.ifce.pecaai.dto.PedidoRequestDTO;
 import com.edu.ifce.pecaai.entities.Pedido;
 import com.edu.ifce.pecaai.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<Pedido> criar(@RequestBody Pedido pedido) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.salvar(pedido));
+    public ResponseEntity<Pedido> criar(@RequestBody PedidoRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.salvar(dto));
     }
 
     @DeleteMapping("/{id}")
